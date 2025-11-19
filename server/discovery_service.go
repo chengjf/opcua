@@ -68,6 +68,10 @@ func (s *DiscoveryService) GetEndpoints(sc *uasc.SecureChannel, r ua.Request, re
 		}
 	}
 
+	if len(matching_endpoints) == 0 {
+		matching_endpoints = append(matching_endpoints, s.srv.endpoints...)
+	}
+
 	response := &ua.GetEndpointsResponse{
 		ResponseHeader: responseHeader(req.RequestHeader.RequestHandle, ua.StatusOK),
 		Endpoints:      matching_endpoints,
